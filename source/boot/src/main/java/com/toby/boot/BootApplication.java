@@ -7,7 +7,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
 import org.springframework.boot.web.server.WebServer;
 import org.springframework.boot.web.servlet.server.ServletWebServerFactory;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -27,9 +29,13 @@ public class BootApplication {
 				servletContext.addServlet("hello", new HttpServlet() {
 					@Override
 					protected void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+						// 요청 값 추출
+						String name = req.getParameter("name");
+
+						// 응답 설정
 						res.setStatus(HttpStatus.OK.value());
-						res.setHeader("Content-Type", "text/plain");
-						res.getWriter().println("Hello Servlet");
+						res.setHeader(HttpHeaders.CONTENT_TYPE, MediaType.TEXT_PLAIN_VALUE);
+						res.getWriter().println("Hello " + name);
 						super.service(req, res);
 					}
 				}).addMapping("/hello")
