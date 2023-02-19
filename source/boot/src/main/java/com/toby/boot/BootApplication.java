@@ -7,6 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
 import org.springframework.boot.web.server.WebServer;
 import org.springframework.boot.web.servlet.server.ServletWebServerFactory;
+import org.springframework.context.support.GenericApplicationContext;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
@@ -22,9 +23,14 @@ import java.io.IOException;
 public class BootApplication {
 
 	public static void main(String[] args) {
-		ServletWebServerFactory serverFactory = new TomcatServletWebServerFactory();
+		// 스프링 컨테이너 만들기
+		GenericApplicationContext applicationContext = new GenericApplicationContext();
+		// Bean 등록
+		applicationContext.registerBean(IndexController.class);
+		// Bean 생성
+		applicationContext.refresh();
 
-		IndexController indexController = new IndexController();
+		ServletWebServerFactory serverFactory = new TomcatServletWebServerFactory();
 		WebServer webServer = serverFactory.getWebServer(servletContext ->
 				servletContext.addServlet("frontcontroller", new HttpServlet() {
 					@Override
@@ -32,14 +38,12 @@ public class BootApplication {
 						if(req.getRequestURI().equals("/hello") && req.getMethod().equals(HttpMethod.GET.name())) {
 							String name = req.getParameter("name");
 
-							// 응답 값의 책임 분리
+							// Bean 추출
+							IndexController indexController = applicationContext.getBean(IndexController.class);
 							String ret = indexController.hello(name);
 
-							res.setStatus(HttpStatus.OK.value());
-							res.setHeader(HttpHeaders.CONTENT_TYPE, MediaType.TEXT_PLAIN_VALUE);
+							res.setContentType(MediaType.TEXT_PLAIN_VALUE);
 							res.getWriter().println(ret);
-						} else if(req.getRequestURI().equals("/user")) {
-
 						} else {
 							res.setStatus(HttpStatus.NOT_FOUND.value());
 						}
