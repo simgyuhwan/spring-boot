@@ -2,6 +2,7 @@ package com.toby.boot;
 
 //import org.springframework.boot.SpringApplication;
 import com.toby.boot.controller.IndexController;
+import com.toby.boot.service.SimpleIndexService;
 import org.apache.catalina.startup.Tomcat;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
@@ -23,11 +24,11 @@ import java.io.IOException;
 public class BootApplication {
 
 	public static void main(String[] args) {
-		// 스프링 컨테이너 만들기
 		GenericApplicationContext applicationContext = new GenericApplicationContext();
-		// Bean 등록
 		applicationContext.registerBean(IndexController.class);
-		// Bean 생성
+		// DI를 위한 구현체 빈 등록
+		applicationContext.registerBean(SimpleIndexService.class);
+
 		applicationContext.refresh();
 
 		ServletWebServerFactory serverFactory = new TomcatServletWebServerFactory();
@@ -38,7 +39,6 @@ public class BootApplication {
 						if(req.getRequestURI().equals("/hello") && req.getMethod().equals(HttpMethod.GET.name())) {
 							String name = req.getParameter("name");
 
-							// Bean 추출
 							IndexController indexController = applicationContext.getBean(IndexController.class);
 							String ret = indexController.hello(name);
 
