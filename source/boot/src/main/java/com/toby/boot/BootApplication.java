@@ -11,23 +11,15 @@ import org.springframework.boot.web.server.WebServer;
 import org.springframework.boot.web.servlet.server.ServletWebServerFactory;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 import org.springframework.web.context.support.GenericWebApplicationContext;
 import org.springframework.web.servlet.DispatcherServlet;
 
 @Configuration
+@ComponentScan
 public class BootApplication {
-
-	@Bean
-	public IndexController indexController(IndexService indexService) {
-		return new IndexController(indexService);
-	}
-
-	@Bean
-	public IndexService indexService() {
-		return new SimpleIndexService();
-	}
 
 	public static void main(String[] args) {
 		AnnotationConfigWebApplicationContext applicationContext = new AnnotationConfigWebApplicationContext() {

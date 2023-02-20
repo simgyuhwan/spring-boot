@@ -1,6 +1,7 @@
 package com.toby.boot.controller;
 
 import com.toby.boot.service.IndexService;
+import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -8,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Objects;
 
+@Component
 @RequestMapping
 public class IndexController {
     private final IndexService indexService;
