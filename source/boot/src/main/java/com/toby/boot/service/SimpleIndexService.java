@@ -1,9 +1,8 @@
 package com.toby.boot.service;
 
-import com.toby.boot.annotation.MyComponent;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
-@MyComponent
+@Service
 public class SimpleIndexService implements IndexService {
     @Override
     public String sayHello(String name) {
