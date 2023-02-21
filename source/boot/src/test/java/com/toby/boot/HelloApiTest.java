@@ -18,7 +18,7 @@ public class HelloApiTest {
 
         assertThat(res.getStatusCode()).isEqualTo(HttpStatus.OK);
         assertThat(res.getHeaders().getContentType().includes(MediaType.TEXT_PLAIN)).isTrue();
-        assertThat(res.getBody()).isEqualTo("Hello Sim");
+        assertThat(res.getBody()).isEqualTo("*Hello Sim*");
     }
 
     @Test
