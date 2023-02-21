@@ -3,7 +3,7 @@ package com.toby.boot.service;
 import org.springframework.stereotype.Service;
 
 @Service
-public class SimpleIndexService implements IndexService {
+public class SimpleHelloService implements HelloService {
     @Override
     public String sayHello(String name) {
         return "Hello " + name;

@@ -1,5 +1,5 @@
 package com.toby.boot.service;
 
-public interface IndexService {
+public interface HelloService {
     String sayHello(String name);
 }
