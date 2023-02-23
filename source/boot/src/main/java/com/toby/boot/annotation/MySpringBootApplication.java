@@ -15,5 +15,4 @@ import java.lang.annotation.Target;
 @Target(ElementType.TYPE)
 @EnableMyAutoConfiguration
 public @interface MySpringBootApplication {
-
 }
