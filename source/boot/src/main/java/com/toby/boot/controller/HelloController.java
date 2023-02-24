@@ -14,7 +14,6 @@ public class HelloController {
     public HelloController(HelloService helloService) {
         this.helloService = helloService;
     }
-
     @GetMapping("/hello")
     public String hello(String name) {
         if(!StringUtils.hasText(name)) {
