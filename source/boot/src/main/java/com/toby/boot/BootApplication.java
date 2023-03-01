@@ -1,4 +1,4 @@
-package com.toby.config;
+package com.toby.boot;
 
 import com.toby.boot.annotation.MySpringBootApplication;
 import org.springframework.boot.SpringApplication;
