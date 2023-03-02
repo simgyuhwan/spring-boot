@@ -13,7 +13,7 @@ public class HelloApiTest {
         TestRestTemplate rest = new TestRestTemplate();
 
         ResponseEntity<String> res
-                = rest.getForEntity("http://localhost:8080/hello?name={name}", String.class, "Sim");
+                = rest.getForEntity("http://localhost:8080/app/hello?name={name}", String.class, "Sim");
 
         assertThat(res.getStatusCode()).isEqualTo(HttpStatus.OK);
         assertThat(res.getHeaders().getContentType().includes(MediaType.TEXT_PLAIN)).isTrue();
@@ -25,7 +25,7 @@ public class HelloApiTest {
         TestRestTemplate rest = new TestRestTemplate();
 
         ResponseEntity<String> res
-                = rest.getForEntity("http://localhost:8080/hello?name=", String.class);
+                = rest.getForEntity("http://localhost:8080/app/hello?name=", String.class);
 
         assertThat(res.getStatusCode()).isEqualTo(HttpStatus.INTERNAL_SERVER_ERROR);
     }
